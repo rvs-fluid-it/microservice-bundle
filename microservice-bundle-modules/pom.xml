@@ -5,11 +5,6 @@
 		http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <!--parent>
-    <groupId></groupId>
-    <artifactId></artifactId>
-    <version></version>
-  </parent-->
   <groupId>be.fluid-it.microservice.bundle</groupId>
   <artifactId>microservice-bundle-modules</artifactId>
   <version>0.1-SNAPSHOT</version>
@@ -37,9 +32,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@github.com:rvs-fluid-it/dropwizard-guice-camel.git</connection>
-    <developerConnection>scm:git:git@github.com:rvs-fluid-it/microservices-bundle.git</developerConnection>
-    <url>git@github.com:rvs-fluid-it/microservices-bundle.git</url>
+    <connection>scm:git:git@github.com:rvs-fluid-it/microservice-bundle.git</connection>
+    <developerConnection>scm:git:git@github.com:rvs-fluid-it/microservice-bundle.git</developerConnection>
+    <url>git@github.com:rvs-fluid-it/microservice-bundle.git</url>
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -155,7 +150,7 @@
               </execution>
             </executions>
           </plugin>
-          <!--plugin>
+          <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-gpg-plugin</artifactId>
             <version>1.6</version>
@@ -179,7 +174,7 @@
               <nexusUrl>https://oss.sonatype.org/</nexusUrl>
               <autoReleaseAfterClose>true</autoReleaseAfterClose>
             </configuration>
-          </plugin-->
+          </plugin>
         </plugins>
       </build>
     </profile>
