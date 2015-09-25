@@ -119,6 +119,10 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     applicationModules.add(new RegistryModule());
     applicationModules.add(dropwizardEnvironmentModule);
 
+    logger.info("Wiring of application:");
+    for (Module applicationModule : applicationModules) {
+      logger.info("   " + applicationModule.getClass().getSimpleName());
+    }
     applicationInjector = bootstrapInjector.createChildInjector(applicationModules);
 
     JerseyUtil.registerGuiceBound(applicationInjector, environment.jersey());
@@ -144,6 +148,10 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
 
   @Override
   public void initialize(Bootstrap<?> bootstrap) {
+    logger.info("Wiring during bootstrap:");
+    for (Module bootstrapModule : bootstrapModules) {
+      logger.info("   " + bootstrapModule.getClass().getSimpleName());
+    }
     this.bootstrapInjector = Guice.createInjector(stage, bootstrapModules);
   }
 
