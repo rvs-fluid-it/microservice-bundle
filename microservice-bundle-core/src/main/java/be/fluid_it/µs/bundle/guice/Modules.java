@@ -1,6 +1,8 @@
 package be.fluid_it.µs.bundle.guice;
 
 import com.google.inject.Module;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -9,6 +11,8 @@ import java.util.Map;
 import java.util.ServiceLoader;
 
 public class Modules {
+  private static final Logger logger = LoggerFactory.getLogger(Modules.class);
+
   private static final String DISABLED = "disabled";
 
   public static List<Module> find(Class<? extends Module> moduleClass) {
@@ -18,6 +22,8 @@ public class Modules {
       Module module = moduleIterator.next();
       if (!isDisabled(module.getClass())) {
         modules.add(module);
+      } else {
+        logger.info(module.getClass().getSimpleName() +  " is disabled.");
       }
     }
     return modules;
