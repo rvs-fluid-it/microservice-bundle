@@ -2,8 +2,11 @@ package be.fluid_it.µs.bundle.dropwizard;
 
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
+import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
@@ -33,6 +36,8 @@ public abstract class µService<C extends Configuration> extends Application<C> 
 
   private µsBundle<C> µsBundleInstance;
   private C configuration;
+  private Environment environment;
+  private Logger logger = LoggerFactory.getLogger(getClass());
 
   @Override
   public void initialize(Bootstrap<C> bootstrap) {
@@ -51,9 +56,20 @@ public abstract class µService<C extends Configuration> extends Application<C> 
       return this.configuration;
   }
 
+  public void stop() {
+      for (org.eclipse.jetty.util.component.LifeCycle lifeCycle :  environment.lifecycle().getManagedObjects()) {
+          try {
+              lifeCycle.stop();
+          } catch (Exception e) {
+              logger.warn("Exception encountered while stopping (" + lifeCycle + ") : " + e);
+          }
+      }
+  }
+
   @Override
   public void run(C configuration, Environment environment) throws Exception {
     this.configuration = configuration;
+    this.environment = environment;
     run(configuration, environment, µsBundleInstance.µsEnvironment());
   }
 
