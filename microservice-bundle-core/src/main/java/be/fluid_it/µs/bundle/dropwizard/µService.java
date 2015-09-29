@@ -13,9 +13,9 @@ public abstract class µService<C extends Configuration> extends Application<C> 
 
   public static void main(String[] args) throws Exception {
     if (args != null && args.length > 0) {
-      µServiceClass.newInstance().run(concat(new String[]{"server"}, args));
+      newService(args);
     } else {
-      µServiceClass.newInstance().run("server", relativePathToYmlInIDE);
+      newService(relativePathToYmlInIDE);
     }
   }
 
@@ -25,7 +25,14 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     return result;
   }
 
+  public static µService newService(String... args) throws Exception {
+      µService µService = µServiceClass.newInstance();
+      µService.run(concat(new String[]{"server"}, args));
+      return µService;
+  }
+
   private µsBundle<C> µsBundleInstance;
+  private C configuration;
 
   @Override
   public void initialize(Bootstrap<C> bootstrap) {
@@ -40,8 +47,13 @@ public abstract class µService<C extends Configuration> extends Application<C> 
 
   public abstract Class<C> configurationClass();
 
+  public C configuration() {
+      return this.configuration;
+  }
+
   @Override
   public void run(C configuration, Environment environment) throws Exception {
+    this.configuration = configuration;
     run(configuration, environment, µsBundleInstance.µsEnvironment());
   }
 
