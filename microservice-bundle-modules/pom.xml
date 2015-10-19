@@ -41,7 +41,7 @@
     <dropwizard.version>0.8.1</dropwizard.version>
     <guice.version>4.0</guice.version>
     <guava.version>18.0</guava.version>
-    <camel.version>2.15.0</camel.version>
+    <camel.version>2.16.0</camel.version>
   </properties>
   <distributionManagement>
     <repository>
