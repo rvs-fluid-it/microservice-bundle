@@ -24,6 +24,10 @@ import com.google.inject.Key;
  * bean from the guiceregistry.
  *  
  * @author chelfim@google.com (Mourad Chelfi)
+ *
+ * Modification:
+ *  If the binding is not annotated, the the full name of the bound type will be used as name
+ * @author Fluid-IT
  */
 public class GuiceRegistry implements Registry {
   private static final Logger logger = LoggerFactory.getLogger(GuiceRegistry.class);
@@ -48,7 +52,15 @@ public class GuiceRegistry implements Registry {
         }
       }
     }
-
+    if (answer == null) {
+      try {
+        Class clazz = Class.forName(name);
+        answer = injector.getInstance(clazz);
+      } catch (ClassNotFoundException e) {
+        String msg = "Bean with " + name + " not found in Guice registry ...";
+        logger.info(msg);
+      }
+    }
     return answer;
   }
 
@@ -76,20 +88,20 @@ public class GuiceRegistry implements Registry {
     Map<Key<?>, Binding<?>> bindings = injector.getBindings();
 
     for (Key<?> key : bindings.keySet()) {
-      Annotation annotation = key.getAnnotation();
+      if (key.getTypeLiteral().getRawType().isAssignableFrom(type)) {
+        Annotation annotation = key.getAnnotation();
+        String name = null;
+        Object inst = injector.getInstance(key);
+        if (annotation != null && annotation instanceof CamelBind) {
+          name = ((CamelBind) key.getAnnotation()).value();
 
-      if (annotation instanceof CamelBind) {
-        if (key.getTypeLiteral().getRawType().isAssignableFrom(type)) {
-          String name = ((CamelBind) key.getAnnotation()).value();
-          Object inst = injector.getInstance(key);
-
-          logger.debug("Found binding for name: {} with value: {}", name, inst);
-
-          result.put(name, type.cast(inst));
+        } else {
+          name = type.getName();
         }
+        logger.debug("Found binding for name: {} with value: {}", name, inst);
+        result.put(name, type.cast(inst));
       }
     }
-
     return result;
   }
 
