@@ -118,7 +118,7 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
   @Override
   public void run(C configuration, Environment environment) throws Exception {
     for (GuiceLifecycleListener guiceLifecycleListener : guiceLifecycleListeners) {
-      guiceLifecycleListener.beforeGuiceStart();
+      guiceLifecycleListener.beforeGuiceStart(configuration, environment);
     }
     if (configurationClass.isPresent()) {
       dropwizardEnvironmentModule = new DropwizardEnvironmentModule<>(configurationClass.get());
@@ -138,7 +138,7 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     applicationInjector = bootstrapInjector.createChildInjector(applicationModules);
 
     for (GuiceLifecycleListener guiceLifecycleListener : guiceLifecycleListeners) {
-      guiceLifecycleListener.guiceStarted();
+      guiceLifecycleListener.guiceStarted(configuration, environment);
     }
 
     JerseyUtil.registerGuiceBound(applicationInjector, environment.jersey());

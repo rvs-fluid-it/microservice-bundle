@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-public abstract class µService<C extends Configuration> extends Application<C> implements GuiceLifecycleListener {
+public abstract class µService<C extends Configuration> extends Application<C> implements GuiceLifecycleListener<C> {
   public static Class<? extends µService> µServiceClass;
   public static String relativePathToYmlInIDE;
 
@@ -68,11 +68,11 @@ public abstract class µService<C extends Configuration> extends Application<C> 
   }
 
     @Override
-    public void beforeGuiceStart() {
+    public void beforeGuiceStart(C configuration, Environment environment) {
     }
 
     @Override
-    public void guiceStarted() {
+    public void guiceStarted(C configuration, Environment environment) {
     }
 
     @Override
