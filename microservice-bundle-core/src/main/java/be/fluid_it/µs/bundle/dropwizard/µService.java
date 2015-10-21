@@ -1,5 +1,6 @@
 package be.fluid_it.µs.bundle.dropwizard;
 
+import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.lifecycle.Managed;
@@ -10,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
-public abstract class µService<C extends Configuration> extends Application<C> {
+public abstract class µService<C extends Configuration> extends Application<C> implements GuiceLifecycleListener {
   public static Class<? extends µService> µServiceClass;
   public static String relativePathToYmlInIDE;
 
@@ -43,7 +44,7 @@ public abstract class µService<C extends Configuration> extends Application<C> 
   public void initialize(Bootstrap<C> bootstrap) {
     µsBundle.Builder<C> µsBundleBuilder = µsBundle.<C>newBuilder();
     initialize(µsBundleBuilder);
-    µsBundleInstance = µsBundleBuilder.setConfigClass(configurationClass()).build();
+    µsBundleInstance = µsBundleBuilder.setConfigClass(configurationClass()).addGuiceLifecycleListener(this).build();
     bootstrap.addBundle(µsBundleInstance);
   }
 
@@ -66,7 +67,15 @@ public abstract class µService<C extends Configuration> extends Application<C> 
       }
   }
 
-  @Override
+    @Override
+    public void beforeGuiceStart() {
+    }
+
+    @Override
+    public void guiceStarted() {
+    }
+
+    @Override
   public void run(C configuration, Environment environment) throws Exception {
     this.configuration = configuration;
     this.environment = environment;

@@ -4,6 +4,7 @@ import be.fluid_it.µs.bundle.camel.guice.RegistryModule;
 import be.fluid_it.µs.bundle.dropwizard.camel.ManagedCamelContext;
 import be.fluid_it.µs.bundle.dropwizard.camel.health.CamelHealthCheck;
 import be.fluid_it.µs.bundle.dropwizard.guice.DropwizardEnvironmentModule;
+import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
 import be.fluid_it.µs.bundle.dropwizard.guice.jersey.JerseyModule;
 import be.fluid_it.µs.bundle.dropwizard.guice.jersey.JerseyUtil;
 import be.fluid_it.µs.bundle.guice.ApplicationModule;
@@ -13,6 +14,7 @@ import com.codahale.metrics.health.HealthCheck;
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Stage;
@@ -37,6 +39,7 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
   private final List<Module> applicationModules;
   private final List<RoutesBuilder> routesBuilders;
   private List<Class<? extends RoutesBuilder>> routesBuilderClasses;
+  private List<GuiceLifecycleListener> guiceLifecycleListeners;
 
   private Injector bootstrapInjector;
   private Injector applicationInjector;
@@ -52,6 +55,7 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     private List<Module> applicationModules = Modules.find(ApplicationModule.class);
     private List<RoutesBuilder> routesBuilders = new LinkedList<>();
     private List<Class<? extends RoutesBuilder>> routesBuilderClasses = new LinkedList<>();
+    private List<GuiceLifecycleListener> guiceLifecycleListeners = new LinkedList<>();
     private Optional<Class<T>> configurationClass = Optional.absent();
 
     public Builder<T> addModule(Module module) {
@@ -78,6 +82,10 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
       return this;
     }
 
+    public Builder<T> addGuiceLifecycleListener(GuiceLifecycleListener guiceLifecycleListener) {
+      guiceLifecycleListeners.add(guiceLifecycleListener);
+      return this;
+    }
 
     public Builder<T> setConfigClass(Class<T> clazz) {
       configurationClass = Optional.of(clazz);
@@ -89,11 +97,11 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     }
 
     public µsBundle<T> build(Stage s) {
-      return new µsBundle<>(s, bootstrapModules, applicationModules, configurationClass, routesBuilders, routesBuilderClasses);
+      return new µsBundle<>(s, bootstrapModules, applicationModules, configurationClass, routesBuilders, routesBuilderClasses, guiceLifecycleListeners);
     }
   }
 
-  private µsBundle(Stage stage, List<Module> bootstrapModules, List<Module> applicationModules, Optional<Class<C>> configurationClass, List<RoutesBuilder> routesBuilders, List<Class<? extends RoutesBuilder>> routesBuilderClasses) {
+  private µsBundle(Stage stage, List<Module> bootstrapModules, List<Module> applicationModules, Optional<Class<C>> configurationClass, List<RoutesBuilder> routesBuilders, List<Class<? extends RoutesBuilder>> routesBuilderClasses, List<GuiceLifecycleListener> guiceLifecycleListeners) {
     Preconditions.checkNotNull(bootstrapModules);
     Preconditions.checkNotNull(applicationModules);
     Preconditions.checkArgument(!applicationModules.isEmpty());
@@ -103,11 +111,15 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     this.configurationClass = configurationClass;
     this.routesBuilders = routesBuilders;
     this.routesBuilderClasses = routesBuilderClasses;
+    this.guiceLifecycleListeners = guiceLifecycleListeners;
     this.stage = stage;
   }
 
   @Override
   public void run(C configuration, Environment environment) throws Exception {
+    for (GuiceLifecycleListener guiceLifecycleListener : guiceLifecycleListeners) {
+      guiceLifecycleListener.beforeGuiceStart();
+    }
     if (configurationClass.isPresent()) {
       dropwizardEnvironmentModule = new DropwizardEnvironmentModule<>(configurationClass.get());
     } else {
@@ -124,6 +136,10 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
       logger.info("   " + applicationModule.getClass().getSimpleName());
     }
     applicationInjector = bootstrapInjector.createChildInjector(applicationModules);
+
+    for (GuiceLifecycleListener guiceLifecycleListener : guiceLifecycleListeners) {
+      guiceLifecycleListener.guiceStarted();
+    }
 
     JerseyUtil.registerGuiceBound(applicationInjector, environment.jersey());
     JerseyUtil.registerGuiceFilter(environment);
