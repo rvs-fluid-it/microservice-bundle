@@ -3,5 +3,7 @@ sudo: false
 language: java
 jdk:
   - oraclejdk7
+before_script:
+   - cd microservice-bundle-modules  
 script:
    - mvn clean install
