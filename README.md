@@ -5,8 +5,8 @@ Opinionated Dropwizard bundle to ease developing microservices in Java. The bund
 
 Dependencies:
 -------------
-![µServices Friends](/doc/images/µservices%26friends.svg?raw=true)
+![µServices Friends](/doc/images/µservices-and-friends.png?raw=true)
 
 Classes:
 --------
-![µServices Classes](/doc/images/µservice-classes.svg?raw=true)
+![µServices Classes](/doc/images/µservice-classes.png?raw=true)
