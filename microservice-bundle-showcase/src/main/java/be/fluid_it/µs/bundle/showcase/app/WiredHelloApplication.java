@@ -16,7 +16,7 @@ public class WiredHelloApplication extends Application<HelloConfiguration> {
     if (args != null && args.length > 0) {
       new WiredHelloApplication().run(concat(new String[] {"server"}, args));
     } else {
-      new WiredHelloApplication().run("server", "../microservices-bundle-showcase/target/classes/hello-config.yml");
+      new WiredHelloApplication().run("server", "../microservice-bundle-showcase/src/main/config/hello-config.yml");
     }
   }
 
