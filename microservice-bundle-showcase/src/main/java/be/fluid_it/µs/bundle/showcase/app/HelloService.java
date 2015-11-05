@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class HelloService extends µService<HelloConfiguration> {
   static {
     µService.µServiceClass = HelloService.class;
-    µService.relativePathToYmlInIDE = "../microservice-bundle-showcase/src/main/config/hello-config.yml";
+    µService.relativePathToYmlInIDE = "../microservice-bundle-showcase/src/main/config/service/hello-config.yml";
   }
 
   @Override

@@ -40,15 +40,14 @@
     </dependency>
 
     <!-- Jersey2<->Guice -->
+    <!-- Should not alter Jersey, Guice and slf4j -->
+    <!-- In case of an incompatibility then this component should be forked and adapted -->
     <dependency>
       <groupId>com.squarespace.jersey2-guice</groupId>
       <artifactId>jersey2-guice</artifactId>
       <version>0.10</version>
       <exclusions>
-        <exclusion>
-          <groupId>com.google.code.findbugs</groupId>
-          <artifactId>jsr305</artifactId>
-        </exclusion>
+        <!-- Provided by Dropwizard -->
         <exclusion>
           <groupId>org.slf4j</groupId>
           <artifactId>slf4j-api</artifactId>
@@ -57,9 +56,26 @@
           <groupId>org.glassfish.jersey.containers</groupId>
           <artifactId>jersey-container-servlet-core</artifactId>
         </exclusion>
+        <exclusion>
+          <groupId>com.google.inject.extensions</groupId>
+          <artifactId>guice-multibindings</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>com.google.inject.extensions</groupId>
+          <artifactId>guice-servlet</artifactId>
+        </exclusion>
       </exclusions>
     </dependency>
-
+    <dependency>
+      <groupId>com.google.inject.extensions</groupId>
+      <artifactId>guice-multibindings</artifactId>
+      <version>${guice.version}</version>
+    </dependency>
+    <!--dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet-core</artifactId>
+      <version>${dropwizard.jersey.version}</version>
+    </dependency-->
     <dependency>
       <groupId>org.apache.camel</groupId>
       <artifactId>camel-core</artifactId>

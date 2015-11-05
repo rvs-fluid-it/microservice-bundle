@@ -16,7 +16,7 @@ public class HelloApplication extends Application<HelloConfiguration> {
     if (args != null && args.length > 0) {
       new HelloApplication().run(concat(new String[] {"server"}, args));
     } else {
-      new HelloApplication().run("server", "../microservice-bundle-showcase/src/main/config/hello-config.yml");
+      new HelloApplication().run("server", "../microservice-bundle-showcase/src/main/config/application/hello-config.yml");
     }
   }
 
