@@ -54,6 +54,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- 0.8 -->
+    <!-- See https://github.com/Squarespace/jersey2-guice/issues/32 -->
+    <!-- https://github.com/HubSpot/dropwizard-guice/issues/67 -->
+    <!-- This issue should first be solved before we can upgrade Dropwizard -->
     <dropwizard.version>0.8.3</dropwizard.version>
     <dropwizard.guava.version>18.0</dropwizard.guava.version>
     <dropwizard.jersey.version>2.16</dropwizard.jersey.version>
