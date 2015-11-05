@@ -57,17 +57,18 @@
     <!-- See https://github.com/Squarespace/jersey2-guice/issues/32 -->
     <!-- https://github.com/HubSpot/dropwizard-guice/issues/67 -->
     <!-- This issue should first be solved before we can upgrade Dropwizard -->
-    <dropwizard.version>0.8.3</dropwizard.version>
+    <!--dropwizard.version>0.8.3</dropwizard.version>
     <dropwizard.guava.version>18.0</dropwizard.guava.version>
     <dropwizard.jersey.version>2.16</dropwizard.jersey.version>
     <dropwizard.jackson.version>2.5.1</dropwizard.jackson.version>
-    <dropwizard.slf4j.version>1.7.10</dropwizard.slf4j.version>
+    <dropwizard.slf4j.version>1.7.10</dropwizard.slf4j.version-->
+    <!-- Fork + added Workaround in jersey2-guice -->
     <!-- 0.9 -->
-    <!--dropwizard.version>0.9.1</dropwizard.version>
+    <dropwizard.version>0.9.1</dropwizard.version>
     <dropwizard.guava.version>18.0</dropwizard.guava.version>
     <dropwizard.jersey.version>2.22.1</dropwizard.jersey.version>
     <dropwizard.jackson.version>2.6.3</dropwizard.jackson.version>
-    <dropwizard.slf4j.version>1.7.12</dropwizard.slf4j.version-->
+    <dropwizard.slf4j.version>1.7.12</dropwizard.slf4j.version>
     <guice.version>4.0</guice.version>
     <camel.version>2.16.0</camel.version>
   </properties>

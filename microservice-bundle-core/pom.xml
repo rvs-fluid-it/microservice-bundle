@@ -43,9 +43,9 @@
     <!-- Should not alter Jersey, Guice and slf4j -->
     <!-- In case of an incompatibility then this component should be forked and adapted -->
     <dependency>
-      <groupId>com.squarespace.jersey2-guice</groupId>
+      <groupId>be.fluid-it.com.squarespace.jersey2-guice</groupId>
       <artifactId>jersey2-guice</artifactId>
-      <version>0.10</version>
+      <version>0.10-fix</version>
       <exclusions>
         <!-- Provided by Dropwizard -->
         <exclusion>
