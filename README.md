@@ -4,6 +4,8 @@
 
 Opinionated Dropwizard bundle to ease developing microservices in Java. The bundle ads Guice dependency injection and Apache Camel routing to Dropwizard.
 
+Version 1.0-6 expects Jdk1.8, Dropwizard 0.9.1
+
 Dependencies:
 -------------
 ![µServices Friends](/doc/images/µservices-and-friends.png?raw=true)
@@ -11,3 +13,6 @@ Dependencies:
 Classes:
 --------
 ![µServices Classes](/doc/images/µservice-classes.png?raw=true)
+
+Usage:
+------
