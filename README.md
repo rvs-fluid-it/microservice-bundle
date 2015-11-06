@@ -16,3 +16,4 @@ Classes:
 
 Usage:
 ------
+[See the showcase application ...](microservice-bundle-showcase/src/main/java/be/fluid_it/µs/bundle/showcase/app/HelloService.java)
