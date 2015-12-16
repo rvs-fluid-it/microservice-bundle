@@ -21,26 +21,6 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <!-- 0.8 -->
-    <!-- See https://github.com/Squarespace/jersey2-guice/issues/32 -->
-    <!-- https://github.com/HubSpot/dropwizard-guice/issues/67 -->
-    <!-- This issue should first be solved before we can upgrade Dropwizard -->
-    <!--dropwizard.version>0.8.3</dropwizard.version>
-    <dropwizard.guava.version>18.0</dropwizard.guava.version>
-    <dropwizard.jersey.version>2.16</dropwizard.jersey.version>
-    <dropwizard.jackson.version>2.5.1</dropwizard.jackson.version>
-    <dropwizard.slf4j.version>1.7.10</dropwizard.slf4j.version-->
-    <!-- Fork + added Workaround in jersey2-guice -->
-    <!-- 0.9 -->
-    <dropwizard.version>0.9.1</dropwizard.version>
-    <dropwizard.guava.version>18.0</dropwizard.guava.version>
-    <dropwizard.jersey.version>2.22.1</dropwizard.jersey.version>
-    <!-- Explicitly included version as there is a malformed parent pom on 2.4.0-b31. -->
-    <dropwizard.jersey.hk2.version>2.4.0-b33</dropwizard.jersey.hk2.version>
-    <dropwizard.jackson.version>2.6.3</dropwizard.jackson.version>
-    <dropwizard.slf4j.version>1.7.12</dropwizard.slf4j.version>
-    <guice.version>4.0</guice.version>
-    <camel.version>2.16.0</camel.version>
   </properties>
 
   <modules>
@@ -53,48 +33,11 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.dropwizard</groupId>
-        <artifactId>dropwizard-core</artifactId>
-        <version>${dropwizard.version}</version>
-        <exclusions>
-          <exclusion>
-            <groupId>org.glassfish.hk2</groupId>
-            <artifactId>hk2-api</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.glassfish.hk2.external</groupId>
-            <artifactId>javax.inject</artifactId>
-          </exclusion>
-          <exclusion>
-            <groupId>org.glassfish.hk2</groupId>
-            <artifactId>hk2-locator</artifactId>
-          </exclusion>
-        </exclusions>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.hk2</groupId>
-        <artifactId>hk2-api</artifactId>
-        <version>${dropwizard.jersey.hk2.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.inject</groupId>
-        <artifactId>guice</artifactId>
-        <version>${guice.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.inject.extensions</groupId>
-        <artifactId>guice-servlet</artifactId>
-        <version>${guice.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>${dropwizard.guava.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel</groupId>
-        <artifactId>camel-core</artifactId>
-        <version>${camel.version}</version>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>microservice-bundle-bom</artifactId>
+        <version>${project.version}</version>
+        <type>pom</type>
+        <scope>import</scope>		
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -103,7 +46,6 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.11</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -117,7 +59,7 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
       <plugin>
@@ -125,7 +67,7 @@
         <artifactId>maven-resources-plugin</artifactId>
         <version>2.7</version>
         <configuration>
-          <encoding>UTF-8</encoding>
+          <encoding>${project.build.sourceEncoding}</encoding>
         </configuration>
       </plugin>
     </plugins>
