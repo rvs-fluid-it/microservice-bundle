@@ -29,7 +29,7 @@ public class HelloService extends µService<HelloConfiguration> {
   }
 
   @Override
-  public void run(HelloConfiguration configuration, Environment environment, µsEnvironment µsEnvironment) throws Exception {
-    environment.jersey().register(HelloResource.class);
+  public void run(HelloConfiguration configuration, µsEnvironment µsEnvironment) throws Exception {
+    µsEnvironment.jersey().register(HelloResource.class);
   }
 }

@@ -188,8 +188,8 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     return camelContext != null;
   }
 
-  public µsEnvironment µsEnvironment() {
-    return new µsEnvironment(bootstrapInjector, applicationInjector, camelContext);
+  public µsEnvironment µsEnvironment(Environment environment) {
+    return new µsEnvironment(environment, bootstrapInjector, applicationInjector, camelContext);
   }
 
   public static <T extends Configuration> Builder<T> newBuilder() {

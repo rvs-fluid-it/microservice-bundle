@@ -79,8 +79,8 @@ public abstract class µService<C extends Configuration> extends Application<C> 
   public void run(C configuration, Environment environment) throws Exception {
     this.configuration = configuration;
     this.environment = environment;
-    run(configuration, environment, µsBundleInstance.µsEnvironment());
+    run(configuration, µsBundleInstance.µsEnvironment(this.environment));
   }
 
-  protected abstract void run(C configuration, Environment environment, µsEnvironment µsEnvironment) throws Exception;
+  protected abstract void run(C configuration, µsEnvironment µsEnvironment) throws Exception;
 }
