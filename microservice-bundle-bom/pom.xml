@@ -15,10 +15,27 @@
 
   <packaging>pom</packaging>
   <name>microservice-bundle-bom</name>
-  <description>Bill of material pom for the µservice bundle.</description>
+  <description>Bill of material pom for the µService bundle.</description>
   
   <dependencyManagement>    
     <dependencies>
+	  <!-- µService bundle -->
+      <dependency>
+        <groupId>be.fluid-it.microservice.bundle</groupId>
+        <artifactId>microservice-bundle-api</artifactId>
+		<version>${project.version}</version>
+      </dependency>
+	  <dependency>
+        <groupId>be.fluid-it.microservice.bundle</groupId>
+        <artifactId>microservice-bundle-core</artifactId>
+		<version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>be.fluid-it.microservice.bundle</groupId>
+        <artifactId>microservice-bundle-testing</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+	  
       <!-- Guice -->
       <dependency>
         <groupId>com.google.inject</groupId>
@@ -76,8 +93,14 @@
         <groupId>io.dropwizard</groupId>
         <artifactId>dropwizard-db</artifactId>
         <version>${dropwizard.version}</version>
-      </dependency> 
+      </dependency>
 
+      <dependency>
+        <groupId>org.eclipse.jetty</groupId>
+        <artifactId>jetty-util</artifactId>
+        <version>${dropwizard.jetty.version}</version>
+      </dependency>
+	  
       <dependency>
         <groupId>javax.validation</groupId>
         <artifactId>validation-api</artifactId>
@@ -129,6 +152,16 @@
         <artifactId>camel-stream</artifactId>
         <version>${camel.version}</version>
       </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-jackson</artifactId>
+        <version>${camel.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-mail</artifactId>
+        <version>${camel.version}</version>
+      </dependency>	  
       <dependency>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-jms</artifactId>
@@ -208,18 +241,21 @@
         <version>${dropwizard.jersey.hk2.version}</version>
       </dependency>
 	  
-	  
+      <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${dropwizard.jackson.version}</version>
+      </dependency>
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-annotations</artifactId>
         <version>${dropwizard.jackson.version}</version>
       </dependency>
-        
       <dependency>
         <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
+        <artifactId>jackson-databind</artifactId>
         <version>${dropwizard.jackson.version}</version>
-      </dependency>        
+      </dependency>	  
     </dependencies>
   </dependencyManagement>  
 </project>  
