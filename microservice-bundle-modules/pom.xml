@@ -27,6 +27,7 @@
     <module>../microservice-bundle-api</module>
     <module>../microservice-bundle-core</module>
     <module>../microservice-bundle-showcase</module>
+    <module>../microservice-bundle-showcase-delivery</module>
     <module>../microservice-bundle-testing</module>
   </modules>
 

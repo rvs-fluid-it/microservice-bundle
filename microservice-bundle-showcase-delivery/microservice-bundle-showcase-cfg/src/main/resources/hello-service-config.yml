@@ -1,0 +1,10 @@
+message: 'Hello from configuration!'
+server:
+  applicationConnectors:
+  - type: http
+    port: 8882
+  adminConnectors:
+  - type: http
+    port: 8883
+logging:
+  level: INFO

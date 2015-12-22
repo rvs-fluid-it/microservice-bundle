@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://maven.apache.org/POM/4.0.0
+		http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>be.fluid-it.microservice.bundle</groupId>
+    <artifactId>microservice-bundle-showcase-delivery</artifactId>
+    <version>0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>  
+
+  <artifactId>microservice-bundle-showcase-capsule</artifactId>
+
+  <packaging>jar</packaging>
+  <name>microservice-bundle-showcase-capsule</name>
+  <description>Showcase application utilizing the microservice bundle packaged as a capsule.</description>
+
+  <properties>
+    <capsule.version>1.0</capsule.version>
+	<capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>microservice-bundle-showcase</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>microservice-bundle-showcase-cfg</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.github.chrischristo</groupId>
+        <artifactId>capsule-maven-plugin</artifactId>
+        <version>${capsule.maven.plugin.version}</version>
+        <configuration>
+		      <appClass>be.fluid_it.µs.bundle.showcase.app.HelloService</appClass>
+          <types>thin fat</types>
+          <!-- Add to unix profile -->
+          <!--chmod>true</chmod-->
+		      <manifest>
+            <entry>
+              <key>Allow-Snapshots</key>
+              <value>true</value>
+            </entry>
+		      </manifest>
+        </configuration>
+		<executions>
+		  <execution>
+		    <goals>
+			  <goal>build</goal>
+			</goals>
+		  </execution>
+		</executions>
+      </plugin>
+    </plugins> 	    
+  </build>  
+</project>  

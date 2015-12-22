@@ -3,6 +3,7 @@ package be.fluid_it.µs.bundle.dropwizard;
 import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
+import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -30,9 +31,9 @@ public abstract class µService<C extends Configuration> extends Application<C> 
   }
 
   public static µService newService(String... args) throws Exception {
-      µService µService = µServiceClass.newInstance();
-      µService.run(concat(new String[]{"server"}, args));
-      return µService;
+    µService µService = µServiceClass.newInstance();
+    µService.run(concat(new String[]{"server"}, args));
+    return µService;
   }
 
   private µsBundle<C> µsBundleInstance;
@@ -42,6 +43,7 @@ public abstract class µService<C extends Configuration> extends Application<C> 
 
   @Override
   public void initialize(Bootstrap<C> bootstrap) {
+    bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
     µsBundle.Builder<C> µsBundleBuilder = µsBundle.<C>newBuilder();
     initialize(µsBundleBuilder);
     µsBundleInstance = µsBundleBuilder.setConfigClass(configurationClass()).addGuiceLifecycleListener(this).build();
@@ -54,28 +56,28 @@ public abstract class µService<C extends Configuration> extends Application<C> 
   public abstract Class<C> configurationClass();
 
   public C configuration() {
-      return this.configuration;
+    return this.configuration;
   }
 
   public void stop() {
-      for (org.eclipse.jetty.util.component.LifeCycle lifeCycle :  environment.lifecycle().getManagedObjects()) {
-          try {
-              lifeCycle.stop();
-          } catch (Exception e) {
-              logger.warn("Exception encountered while stopping (" + lifeCycle + ") : " + e);
-          }
+    for (org.eclipse.jetty.util.component.LifeCycle lifeCycle : environment.lifecycle().getManagedObjects()) {
+      try {
+        lifeCycle.stop();
+      } catch (Exception e) {
+        logger.warn("Exception encountered while stopping (" + lifeCycle + ") : " + e);
       }
+    }
   }
 
-    @Override
-    public void beforeGuiceStart(C configuration, Environment environment) {
-    }
+  @Override
+  public void beforeGuiceStart(C configuration, Environment environment) {
+  }
 
-    @Override
-    public void guiceStarted(C configuration, Environment environment) {
-    }
+  @Override
+  public void guiceStarted(C configuration, Environment environment) {
+  }
 
-    @Override
+  @Override
   public void run(C configuration, Environment environment) throws Exception {
     this.configuration = configuration;
     this.environment = environment;
