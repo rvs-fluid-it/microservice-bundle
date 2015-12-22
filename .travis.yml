@@ -4,6 +4,6 @@ language: java
 jdk:
   - oraclejdk8
 before_script:
-   - cd microservice-bundle-modules  
+   - cd microservice-bundle-build-all  
 script:
    - mvn clean install
