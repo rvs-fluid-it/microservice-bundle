@@ -18,8 +18,14 @@
   <description>Showcase application utilizing the microservice bundle packaged as a capsule.</description>
 
   <properties>
+    <!-- capsule.io -->
     <capsule.version>1.0</capsule.version>
-	<capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
+	  <capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
+    <!-- Spotify Docker plugin -->
+    <docker.maven.plugin.version>0.3.9</docker.maven.plugin.version>
+    <revision>1</revision>
+    <docker.registry></docker.registry>
+    <push.image>false</push.image>
   </properties>
   <dependencies>
     <dependency>
@@ -42,9 +48,7 @@
         <version>${capsule.maven.plugin.version}</version>
         <configuration>
 		      <appClass>be.fluid_it.µs.bundle.showcase.app.HelloService</appClass>
-          <types>thin fat</types>
-          <!-- Add to unix profile -->
-          <!--chmod>true</chmod-->
+          <types>fat</types>
 		      <manifest>
             <entry>
               <key>Allow-Snapshots</key>
@@ -52,14 +56,84 @@
             </entry>
 		      </manifest>
         </configuration>
-		<executions>
-		  <execution>
-		    <goals>
-			  <goal>build</goal>
-			</goals>
-		  </execution>
-		</executions>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker.maven.plugin.version}</version>
+        <configuration>
+          <imageName>${docker.registry}docx-merge:${revision}</imageName>
+          <pushImage>${push.image}</pushImage>
+          <baseImage>java</baseImage>
+          <entryPoint>["java", "-jar", "/${project.build.finalName}-capsule-fat.jar"]</entryPoint>
+          <!-- copy the service's jar file from target into the root directory of the image -->
+          <resources>
+            <resource>
+              <targetPath>/</targetPath>
+              <directory>${project.build.directory}</directory>
+              <include>${project.build.finalName}-capsule-fat.jar</include>
+            </resource>
+          </resources>
+        </configuration>
       </plugin>
     </plugins> 	    
-  </build>  
+  </build>
+  <profiles>
+    <profile>
+      <id>capsule</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.chrischristo</groupId>
+            <artifactId>capsule-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>executable-capsule</id>
+      <activation>
+        <os>
+          <family>unix</family>
+        </os>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.chrischristo</groupId>
+            <artifactId>capsule-maven-plugin</artifactId>
+            <configuration>
+              <chmod>true</chmod>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>docker</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.spotify</groupId>
+            <artifactId>docker-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>  
