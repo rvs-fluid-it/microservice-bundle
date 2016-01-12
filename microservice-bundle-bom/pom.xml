@@ -56,6 +56,14 @@
       <!-- DropWizard -->
       <dependency>
         <groupId>io.dropwizard</groupId>
+        <artifactId>dropwizard-bom</artifactId>
+        <version>${dropwizard.version}</version>
+        <type>pom</type>
+        <scope>import</scope>		
+      </dependency>
+       	  
+      <dependency>
+        <groupId>io.dropwizard</groupId>
         <artifactId>dropwizard-core</artifactId>
         <version>${dropwizard.version}</version>
         <exclusions>
@@ -77,70 +85,20 @@
         <groupId>org.glassfish.hk2</groupId>
         <artifactId>hk2-api</artifactId>
         <version>${dropwizard.jersey.hk2.version}</version>
-      </dependency>
-	  
-      <dependency>
-        <groupId>io.dropwizard</groupId>
-        <artifactId>dropwizard-configuration</artifactId>
-        <version>${dropwizard.version}</version>
-      </dependency>      
-      <dependency>
-        <groupId>io.dropwizard</groupId>
-        <artifactId>dropwizard-logging</artifactId>
-        <version>${dropwizard.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>io.dropwizard</groupId>
-        <artifactId>dropwizard-db</artifactId>
-        <version>${dropwizard.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-util</artifactId>
-        <version>${dropwizard.jetty.version}</version>
-      </dependency>
-	  
+      </dependency>	  	  
       <dependency>
         <groupId>javax.validation</groupId>
         <artifactId>validation-api</artifactId>
         <version>${validation.version}</version>
       </dependency>
         
-      <!-- Logging -->
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${dropwizard.slf4j.version}</version>
-      </dependency>
+      <!-- Logging extra -->
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-simple</artifactId>
         <version>${dropwizard.slf4j.version}</version>
       </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jul-to-slf4j</artifactId>
-        <version>${dropwizard.slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>jcl-over-slf4j</artifactId>
-        <version>${dropwizard.slf4j.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>ch.qos.logback</groupId>
-        <artifactId>logback-classic</artifactId>
-        <version>${dropwizard.logback.version}</version>
-      </dependency>        
-        
-      <!-- Guava -->
-      <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-        <version>${dropwizard.guava.version}</version>
-      </dependency>
-        
+                
       <!-- Camel -->
       <dependency>
         <groupId>org.apache.camel</groupId>
