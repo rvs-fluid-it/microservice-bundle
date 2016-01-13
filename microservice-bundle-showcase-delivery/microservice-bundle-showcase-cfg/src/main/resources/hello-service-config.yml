@@ -8,3 +8,10 @@ server:
     port: 8883
 logging:
   level: INFO
+  appenders:
+    - type: console
+    - type: file
+      currentLogFilename: /var/log/service/hello.log
+      threshold: ALL
+      archive: true
+      archivedLogFilenamePattern: /var/log/service/hello-%d.log  
