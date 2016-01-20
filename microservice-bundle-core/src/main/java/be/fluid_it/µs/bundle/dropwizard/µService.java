@@ -3,7 +3,9 @@ package be.fluid_it.µs.bundle.dropwizard;
 import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
+import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
+import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -43,7 +45,10 @@ public abstract class µService<C extends Configuration> extends Application<C> 
 
   @Override
   public void initialize(Bootstrap<C> bootstrap) {
-    bootstrap.setConfigurationSourceProvider(new ResourceConfigurationSourceProvider());
+    bootstrap.setConfigurationSourceProvider(
+        new SubstitutingSourceProvider(new ResourceConfigurationSourceProvider(),
+            new EnvironmentVariableSubstitutor())
+    );
     µsBundle.Builder<C> µsBundleBuilder = µsBundle.<C>newBuilder();
     initialize(µsBundleBuilder);
     µsBundleInstance = µsBundleBuilder.setConfigClass(configurationClass()).addGuiceLifecycleListener(this).build();
