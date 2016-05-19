@@ -47,7 +47,7 @@ public abstract class µService<C extends Configuration> extends Application<C> 
   public void initialize(Bootstrap<C> bootstrap) {
     bootstrap.setConfigurationSourceProvider(
         new SubstitutingSourceProvider(new ResourceConfigurationSourceProvider(),
-            new EnvironmentVariableSubstitutor())
+            new EnvironmentVariableSubstitutor(false))
     );
     µsBundle.Builder<C> µsBundleBuilder = µsBundle.<C>newBuilder();
     initialize(µsBundleBuilder);
