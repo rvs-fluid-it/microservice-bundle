@@ -91,7 +91,12 @@
         <artifactId>validation-api</artifactId>
         <version>${validation.version}</version>
       </dependency>
-        
+  
+      <dependency>
+        <groupId>com.smoketurner</groupId>
+        <artifactId>dropwizard-swagger</artifactId>
+        <version>${dropwizard.swagger.bundle.version}</version>
+      </dependency>          
       <!-- Logging extra -->
       <dependency>
         <groupId>org.slf4j</groupId>
