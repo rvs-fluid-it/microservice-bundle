@@ -19,11 +19,6 @@ public class HelloService extends µService<HelloConfiguration> {
   }
 
   @Override
-  public Class<HelloConfiguration> configurationClass() {
-    return HelloConfiguration.class;
-  }
-
-  @Override
   public void initialize(µsBundle.Builder<HelloConfiguration> guice) {
     guice.addModule(new HelloModule());
   }

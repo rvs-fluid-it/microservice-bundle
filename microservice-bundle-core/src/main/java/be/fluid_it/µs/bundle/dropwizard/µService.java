@@ -51,14 +51,12 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     );
     µsBundle.Builder<C> µsBundleBuilder = µsBundle.<C>newBuilder();
     initialize(µsBundleBuilder);
-    µsBundleInstance = µsBundleBuilder.setConfigClass(configurationClass()).addGuiceLifecycleListener(this).build();
+    µsBundleInstance = µsBundleBuilder.setConfigClass(getConfigurationClass()).addGuiceLifecycleListener(this).build();
     bootstrap.addBundle(µsBundleInstance);
   }
 
   public void initialize(µsBundle.Builder<C> µsBundleBuilder) {
   }
-
-  public abstract Class<C> configurationClass();
 
   public C configuration() {
     return this.configuration;
