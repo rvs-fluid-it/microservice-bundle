@@ -97,5 +97,10 @@
       <groupId>com.smoketurner</groupId>
       <artifactId>dropwizard-swagger</artifactId>
     </dependency>
+    <!-- Zipkin -->
+    <dependency>
+      <groupId>com.smoketurner.dropwizard</groupId>
+      <artifactId>zipkin-core</artifactId>
+    </dependency>
   </dependencies>
 </project>  

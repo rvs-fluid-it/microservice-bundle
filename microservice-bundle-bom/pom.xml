@@ -96,7 +96,14 @@
         <groupId>com.smoketurner</groupId>
         <artifactId>dropwizard-swagger</artifactId>
         <version>${dropwizard.swagger.bundle.version}</version>
-      </dependency>          
+      </dependency>
+
+      <dependency>
+        <groupId>com.smoketurner.dropwizard</groupId>
+        <artifactId>zipkin-core</artifactId>
+        <version>${dropwizard.zipkin.bundle.version}</version>
+      </dependency>
+
       <!-- Logging extra -->
       <dependency>
         <groupId>org.slf4j</groupId>

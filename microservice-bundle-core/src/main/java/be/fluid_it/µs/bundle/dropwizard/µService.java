@@ -2,6 +2,10 @@ package be.fluid_it.µs.bundle.dropwizard;
 
 import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
 import be.fluid_it.µs.bundle.dropwizard.swagger.SwaggerAware;
+import be.fluid_it.µs.bundle.dropwizard.zipkin.ZipkinAware;
+import com.github.kristofa.brave.Brave;
+import com.smoketurner.dropwizard.zipkin.ZipkinBundle;
+import com.smoketurner.dropwizard.zipkin.ZipkinFactory;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
@@ -64,6 +68,15 @@ public abstract class µService<C extends Configuration> extends Application<C> 
         }
       });
     }
+    if (ZipkinAware.class.isAssignableFrom(getConfigurationClass())) {
+      logger.info("Register " + ZipkinBundle.class.getSimpleName() + " ...");
+      bootstrap.addBundle(new ZipkinBundle<C>(getName()) {
+        @Override
+        public ZipkinFactory getZipkinFactory(C c) {
+          return ((ZipkinAware)c).getZipkin();
+        }
+      });
+    }
   }
 
   public void initialize(µsBundle.Builder<C> µsBundleBuilder) {
@@ -96,6 +109,9 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     this.configuration = configuration;
     this.environment = environment;
     run(configuration, µsBundleInstance.µsEnvironment(this.environment));
+    if (configuration instanceof ZipkinAware) {
+      Brave brave = ((ZipkinAware)configuration).getZipkin().build(environment);
+    }
   }
 
   protected abstract void run(C configuration, µsEnvironment µsEnvironment) throws Exception;
