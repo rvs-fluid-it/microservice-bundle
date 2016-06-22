@@ -1,0 +1,12 @@
+message: 'Hello from configuration!'
+server:
+  applicationConnectors:
+  - type: http
+    port: 8886
+  adminConnectors:
+  - type: http
+    port: 8887
+logging:
+  level: INFO
+swagger:
+  resourcePackage: be.fluid_it.µs.bundle.showcase.resource
