@@ -1,14 +1,16 @@
 package be.fluid_it.µs.bundle.dropwizard;
 
 import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
+import be.fluid_it.µs.bundle.dropwizard.swagger.SwaggerAware;
 import io.dropwizard.Application;
 import io.dropwizard.Configuration;
 import io.dropwizard.configuration.EnvironmentVariableSubstitutor;
 import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
-import io.dropwizard.lifecycle.Managed;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.federecio.dropwizard.swagger.SwaggerBundle;
+import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +55,15 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     initialize(µsBundleBuilder);
     µsBundleInstance = µsBundleBuilder.setConfigClass(getConfigurationClass()).addGuiceLifecycleListener(this).build();
     bootstrap.addBundle(µsBundleInstance);
+    if (SwaggerAware.class.isAssignableFrom(getConfigurationClass())) {
+      logger.info("Register " + SwaggerBundle.class.getSimpleName() + " ...");
+      bootstrap.addBundle(new SwaggerBundle<C>() {
+        @Override
+        protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(C c) {
+          return ((SwaggerAware)c).getSwagger();
+        }
+      });
+    }
   }
 
   public void initialize(µsBundle.Builder<C> µsBundleBuilder) {
