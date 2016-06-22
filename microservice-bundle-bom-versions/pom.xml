@@ -32,7 +32,7 @@
     <dropwizard.jackson.version>2.6.7</dropwizard.jackson.version>
     <dropwizard.jetty.version>9.2.17.v20160517</dropwizard.jetty.version>	
     <junit.version>4.12</junit.version>
-    <camel.version>2.16.0</camel.version>
+    <camel.version>2.17.1</camel.version>
     <servlet.version>3.0</servlet.version>
     <jaxrs.version>2.0.1</jaxrs.version>
     <validation.version>1.1.0.Final</validation.version>

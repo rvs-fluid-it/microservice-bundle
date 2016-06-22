@@ -27,6 +27,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
@@ -47,6 +48,7 @@ import org.apache.camel.spi.LifecycleStrategy;
 import org.apache.camel.spi.ManagementMBeanAssembler;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.ManagementStrategy;
+import org.apache.camel.spi.MessageHistoryFactory;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
@@ -495,6 +497,11 @@ public class ManagedCamelContext implements CamelContext, Managed {
   }
 
   @Override
+  public RestsDefinition loadRestsDefinition(InputStream inputStream) throws Exception {
+    return context.loadRestsDefinition(inputStream);
+  }
+
+  @Override
   @Deprecated
   public void addRouteDefinitions(Collection<RouteDefinition> routeDefinitions) throws Exception {
     context.addRouteDefinitions(routeDefinitions);
@@ -935,6 +942,16 @@ public class ManagedCamelContext implements CamelContext, Managed {
   @Override
   public void setProcessorFactory(ProcessorFactory processorFactory) {
     context.setProcessorFactory(processorFactory);
+  }
+
+  @Override
+  public MessageHistoryFactory getMessageHistoryFactory() {
+    return context.getMessageHistoryFactory();
+  }
+
+  @Override
+  public void setMessageHistoryFactory(MessageHistoryFactory messageHistoryFactory) {
+    context.setMessageHistoryFactory(messageHistoryFactory);
   }
 
   @Override
