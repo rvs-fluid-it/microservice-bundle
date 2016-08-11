@@ -152,6 +152,7 @@
         <artifactId>camel-ejb</artifactId>
         <version>${camel.version}</version>
       </dependency>		
+
       <!-- JUnit -->
       <dependency>
         <groupId>junit</groupId>
@@ -225,7 +226,15 @@
         <groupId>com.fasterxml.jackson.core</groupId>
         <artifactId>jackson-databind</artifactId>
         <version>${dropwizard.jackson.version}</version>
-      </dependency>	  
+      </dependency>
+
+      <!-- Valdr: https://github.com/netceteragroup/valdr-bean-validation -->
+	  <dependency>
+        <groupId>com.github.valdr</groupId>
+        <artifactId>valdr-bean-validation</artifactId>
+        <version>${valdr.version}</version>
+      </dependency>
+	  
     </dependencies>
   </dependencyManagement>  
 </project>  

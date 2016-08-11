@@ -1,9 +1,17 @@
 package be.fluid_it.µs.bundle.dropwizard;
 
 import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
+import be.fluid_it.µs.bundle.dropwizard.jackson.JsonPrettyPrintable;
 import be.fluid_it.µs.bundle.dropwizard.swagger.SwaggerAware;
+import be.fluid_it.µs.bundle.dropwizard.validator.ValidationResource;
+import be.fluid_it.µs.bundle.dropwizard.validator.ValidatorAware;
 import be.fluid_it.µs.bundle.dropwizard.zipkin.ZipkinAware;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.github.kristofa.brave.Brave;
+import com.github.valdr.MinimalMap;
+import com.github.valdr.serializer.MinimalMapSerializer;
 import com.smoketurner.dropwizard.zipkin.ZipkinBundle;
 import com.smoketurner.dropwizard.zipkin.ZipkinFactory;
 import io.dropwizard.Application;
@@ -79,6 +87,18 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     }
   }
 
+  private void configureMapper(C configuration, ObjectMapper objectMapper) {
+    if (configuration instanceof ValidatorAware) {
+      SimpleModule module = new SimpleModule();
+      module.addSerializer(MinimalMap.class, new MinimalMapSerializer());
+      objectMapper.registerModule(module);
+    }
+    if (configuration instanceof JsonPrettyPrintable) {
+      objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
+    }
+  }
+
+
   public void initialize(µsBundle.Builder<C> µsBundleBuilder) {
   }
 
@@ -111,6 +131,10 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     run(configuration, µsBundleInstance.µsEnvironment(this.environment));
     if (configuration instanceof ZipkinAware) {
       Brave brave = ((ZipkinAware)configuration).getZipkin().build(environment);
+    }
+    configureMapper(configuration, environment.getObjectMapper());
+    if (configuration instanceof ValidatorAware) {
+      environment.jersey().register(ValidationResource.class);
     }
   }
 

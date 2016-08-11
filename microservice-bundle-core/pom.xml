@@ -97,6 +97,11 @@
       <groupId>com.smoketurner</groupId>
       <artifactId>dropwizard-swagger</artifactId>
     </dependency>
+    <!-- Valdr -->
+    <dependency>
+      <groupId>com.github.valdr</groupId>
+      <artifactId>valdr-bean-validation</artifactId>
+    </dependency>
     <!-- Zipkin -->
     <dependency>
       <groupId>com.smoketurner.dropwizard</groupId>

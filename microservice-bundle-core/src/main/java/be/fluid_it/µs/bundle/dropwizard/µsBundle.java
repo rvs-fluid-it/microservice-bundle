@@ -7,6 +7,8 @@ import be.fluid_it.µs.bundle.dropwizard.guice.DropwizardEnvironmentModule;
 import be.fluid_it.µs.bundle.dropwizard.guice.GuiceLifecycleListener;
 import be.fluid_it.µs.bundle.dropwizard.guice.jersey.JerseyModule;
 import be.fluid_it.µs.bundle.dropwizard.guice.jersey.JerseyUtil;
+import be.fluid_it.µs.bundle.dropwizard.validator.ValidatorAware;
+import be.fluid_it.µs.bundle.dropwizard.validator.ValidatorModule;
 import be.fluid_it.µs.bundle.guice.ApplicationModule;
 import be.fluid_it.µs.bundle.guice.BootstrapModule;
 import be.fluid_it.µs.bundle.guice.Modules;
@@ -130,6 +132,10 @@ public class µsBundle<C extends Configuration> implements ConfiguredBundle<C> {
     applicationModules.add(new JerseyModule());
     applicationModules.add(new RegistryModule());
     applicationModules.add(dropwizardEnvironmentModule);
+
+    if (configuration instanceof ValidatorAware) {
+      applicationModules.add(new ValidatorModule());
+    }
 
     logger.info("Wiring of application:");
     for (Module applicationModule : applicationModules) {
