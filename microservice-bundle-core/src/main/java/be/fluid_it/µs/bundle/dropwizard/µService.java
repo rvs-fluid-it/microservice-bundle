@@ -21,8 +21,9 @@ import io.dropwizard.configuration.ResourceConfigurationSourceProvider;
 import io.dropwizard.configuration.SubstitutingSourceProvider;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import io.federecio.dropwizard.swagger.SwaggerBundle;
-import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import io.swagger.jaxrs.listing.AcceptHeaderApiListingResource;
+import io.swagger.jaxrs.listing.ApiListingResource;
+import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,15 +68,6 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     initialize(µsBundleBuilder);
     µsBundleInstance = µsBundleBuilder.setConfigClass(getConfigurationClass()).addGuiceLifecycleListener(this).build();
     bootstrap.addBundle(µsBundleInstance);
-    if (SwaggerAware.class.isAssignableFrom(getConfigurationClass())) {
-      logger.info("Register " + SwaggerBundle.class.getSimpleName() + " ...");
-      bootstrap.addBundle(new SwaggerBundle<C>() {
-        @Override
-        protected SwaggerBundleConfiguration getSwaggerBundleConfiguration(C c) {
-          return ((SwaggerAware)c).getSwagger();
-        }
-      });
-    }
     if (ZipkinAware.class.isAssignableFrom(getConfigurationClass())) {
       logger.info("Register " + ZipkinBundle.class.getSimpleName() + " ...");
       bootstrap.addBundle(new ZipkinBundle<C>(getName()) {
@@ -97,7 +89,6 @@ public abstract class µService<C extends Configuration> extends Application<C> 
       objectMapper.configure(SerializationFeature.INDENT_OUTPUT, true);
     }
   }
-
 
   public void initialize(µsBundle.Builder<C> µsBundleBuilder) {
   }
@@ -135,6 +126,11 @@ public abstract class µService<C extends Configuration> extends Application<C> 
     configureMapper(configuration, environment.getObjectMapper());
     if (configuration instanceof ValidatorAware) {
       environment.jersey().register(ValidationResource.class);
+    }
+    if (configuration instanceof SwaggerAware) {
+      environment.jersey().register(SwaggerSerializers.class);
+      environment.jersey().register(ApiListingResource.class);
+      environment.jersey().register(AcceptHeaderApiListingResource.class);
     }
   }
 

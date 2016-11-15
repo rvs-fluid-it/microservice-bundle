@@ -8,5 +8,5 @@ server:
     port: 8887
 logging:
   level: INFO
-swagger:
-  resourcePackage: be.fluid_it.µs.bundle.showcase.resource
+#swagger:
+#  resourcePackage: be.fluid_it.µs.bundle.showcase.resource

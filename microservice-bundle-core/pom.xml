@@ -94,8 +94,12 @@
     </dependency>
     <!-- Swagger -->
     <dependency>
-      <groupId>com.smoketurner</groupId>
-      <artifactId>dropwizard-swagger</artifactId>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-jersey2-jaxrs</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-multipart</artifactId>
     </dependency>
     <!-- Valdr -->
     <dependency>
