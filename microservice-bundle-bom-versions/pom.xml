@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-		http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>be.fluid-it.microservice.bundle</groupId>
@@ -20,22 +20,22 @@
   <properties>
     <microservice.bundle.version>${project.version}</microservice.bundle.version>
     <guice.version>4.0</guice.version>
-    <swagger.version>1.5.9</swagger.version>	
+    <swagger.version>1.5.9</swagger.version>    
     <dropwizard.version>0.9.3</dropwizard.version>
     <dropwizard.slf4j.version>1.7.21</dropwizard.slf4j.version>
     <dropwizard.logback.version>1.1.3</dropwizard.logback.version>
     <dropwizard.guava.version>18.0</dropwizard.guava.version>
     <dropwizard.jersey.version>2.22.1</dropwizard.jersey.version>
-	<dropwizard.zipkin.bundle.version>0.9.2-9</dropwizard.zipkin.bundle.version>
+    <dropwizard.zipkin.bundle.version>0.9.2-9</dropwizard.zipkin.bundle.version>
     <!-- Explicitly included version as there is a malformed parent pom on 2.4.0-b31. -->
-    <dropwizard.jersey.hk2.version>2.4.0-b33</dropwizard.jersey.hk2.version>	
+    <dropwizard.jersey.hk2.version>2.4.0-b33</dropwizard.jersey.hk2.version>    
     <dropwizard.jackson.version>2.6.7</dropwizard.jackson.version>
-    <dropwizard.jetty.version>9.2.17.v20160517</dropwizard.jetty.version>	
+    <dropwizard.jetty.version>9.2.17.v20160517</dropwizard.jetty.version>    
     <junit.version>4.12</junit.version>
     <camel.version>2.17.1</camel.version>
     <servlet.version>3.0</servlet.version>
     <jaxrs.version>2.0.1</jaxrs.version>
     <validation.version>1.1.0.Final</validation.version>
-	<valdr.version>1.1.2</valdr.version>	
+    <valdr.version>1.1.2</valdr.version>    
   </properties>
 </project>  

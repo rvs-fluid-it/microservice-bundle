@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="
-		http://maven.apache.org/POM/4.0.0
-		http://maven.apache.org/maven-v4_0_0.xsd">
+    xsi:schemaLocation="
+        http://maven.apache.org/POM/4.0.0
+        http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>be.fluid-it.microservice.bundle</groupId>
@@ -20,7 +20,7 @@
   <properties>
     <!-- capsule.io -->
     <capsule.version>1.0</capsule.version>
-	  <capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
+      <capsule.maven.plugin.version>1.0.0</capsule.maven.plugin.version>
     <!-- Spotify Docker plugin -->
     <docker.maven.plugin.version>0.3.9</docker.maven.plugin.version>
     <revision>1</revision>
@@ -47,14 +47,14 @@
         <artifactId>capsule-maven-plugin</artifactId>
         <version>${capsule.maven.plugin.version}</version>
         <configuration>
-		      <appClass>be.fluid_it.µs.bundle.showcase.app.HelloService</appClass>
+              <appClass>be.fluid_it.µs.bundle.showcase.app.HelloService</appClass>
           <types>fat</types>
-		      <manifest>
+              <manifest>
             <entry>
               <key>Allow-Snapshots</key>
               <value>true</value>
             </entry>
-		      </manifest>
+              </manifest>
         </configuration>
       </plugin>
       <plugin>
@@ -76,7 +76,7 @@
           </resources>
         </configuration>
       </plugin>
-    </plugins> 	    
+    </plugins>         
   </build>
   <profiles>
     <profile>
