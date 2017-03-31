@@ -1,5 +1,9 @@
 package be.fluid_it.µs.bundle.dropwizard.server;
 
+import be.fluid_it.µs.bundle.dropwizard.services.EnvironmentProvider;
+import be.fluid_it.µs.bundle.dropwizard.services.ProviderUtil;
+import be.fluid_it.µs.bundle.dropwizard.services.RevisionProvider;
+import be.fluid_it.µs.bundle.dropwizard.services.ServiceNameProvider;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,5 +31,23 @@ public class StatusEntity {
     @JsonProperty("messages")
     public StatusMessage[] getMessages() {
         return messages;
+    }
+
+    @JsonProperty("revision")
+    public String getRevision() {
+        RevisionProvider provider = ProviderUtil.getProvider(RevisionProvider.class);
+        return provider != null ? provider.getRevision() : null;
+    }
+
+    @JsonProperty("env")
+    public String getEnvironment() {
+        EnvironmentProvider provider = ProviderUtil.getProvider(EnvironmentProvider.class);
+        return provider != null ? provider.getEnvironment() : null;
+    }
+
+    @JsonProperty("service")
+    public String getService() {
+        ServiceNameProvider provider = ProviderUtil.getProvider(ServiceNameProvider.class);
+        return provider != null ? provider.getName() : null;
     }
 }

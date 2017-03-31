@@ -73,21 +73,4 @@ public class StatusMessage {
         return details;
     }
 
-    @JsonProperty("revision")
-    public String getRevision() {
-        RevisionProvider provider = ProviderUtil.getProvider(RevisionProvider.class);
-        return provider != null ? provider.getRevision() : null;
-    }
-
-    @JsonProperty("env")
-    public String getEnvironment() {
-        EnvironmentProvider provider = ProviderUtil.getProvider(EnvironmentProvider.class);
-        return provider != null ? provider.getEnvironment() : null;
-    }
-
-    @JsonProperty("service")
-    public String getService() {
-        ServiceNameProvider provider = ProviderUtil.getProvider(ServiceNameProvider.class);
-        return provider != null ? provider.getName() : null;
-    }
 }
