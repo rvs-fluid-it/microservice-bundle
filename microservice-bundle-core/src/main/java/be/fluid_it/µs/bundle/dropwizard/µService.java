@@ -30,6 +30,9 @@ import org.slf4j.LoggerFactory;
 import java.util.Arrays;
 
 public abstract class µService<C extends Configuration> extends Application<C> implements GuiceLifecycleListener<C> {
+  public static final String INTERNAL_SERVER_ERROR = "internal.server.error";
+  public static final String WEB_APPLICATION_ERROR = "web.application.error";
+
   public static Class<? extends µService> µServiceClass;
   public static String relativePathToYmlInIDE;
 

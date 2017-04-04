@@ -23,16 +23,16 @@ public class StatusMessage {
     private final String message;
     private final String details;
 
-    public StatusMessage(Type type, String id, String message) {
-        this(type, id, null, message, null);
+    public StatusMessage(Type type, String id, String key, String message) {
+        this(type, id, key, message, null);
     }
 
-    public StatusMessage(String id, String message) {
-        this(ERROR, id, message);
+    public StatusMessage(String id, String key, String message) {
+        this(ERROR, id, key, message);
     }
 
-    public StatusMessage(Type type,  String message) {
-        this(ERROR, null, message);
+    public StatusMessage(String key, String message) {
+        this(null, key, message);
     }
 
     @JsonCreator

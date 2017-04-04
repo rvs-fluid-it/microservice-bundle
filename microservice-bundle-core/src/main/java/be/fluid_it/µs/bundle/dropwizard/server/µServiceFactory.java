@@ -1,5 +1,6 @@
 package be.fluid_it.µs.bundle.dropwizard.server;
 
+import be.fluid_it.µs.bundle.dropwizard.µService;
 import com.codahale.metrics.MetricRegistry;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -54,11 +55,11 @@ public class µServiceFactory extends DefaultServerFactory {
                             logException(exception);
                         }
                         status = response.getStatus();
-                        statusEntity = new StatusEntity(status, new StatusMessage(StatusMessage.Type.ERROR, exception.getLocalizedMessage()));
+                        statusEntity = new StatusEntity(status, new StatusMessage(µService.WEB_APPLICATION_ERROR, exception.getLocalizedMessage()));
                     } else {
                         final long id = logException(exception);
                         status = Response.Status.INTERNAL_SERVER_ERROR.getStatusCode();
-                        StatusMessage message = new StatusMessage(StatusMessage.Type.ERROR, String.format("%016x", id), formatErrorMessage(id, exception));
+                        StatusMessage message = new StatusMessage(StatusMessage.Type.ERROR, String.format("%016x", id), µService.INTERNAL_SERVER_ERROR, formatErrorMessage(id, exception), null);
                         statusEntity = new StatusEntity(status, message);
                     }
 
